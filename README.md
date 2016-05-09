@@ -6,6 +6,7 @@ Creates a single valid `FeatureCollection` from a file of line delimited feature
 
 
 `CLI`
+
 0. `git clone https://github.com/geohacker/geojson-stream-merge.git`
 2. `cd geojson-stream-merge`
 3. `npm install`
