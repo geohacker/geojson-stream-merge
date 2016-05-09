@@ -16,14 +16,9 @@ function mergeStream(inputFile, outputFile) {
     }
     var inputStream = fs.createReadStream(inputFile, {encoding: 'utf8'}).pipe(split());
 
-    var featureCollection = {
-        "type": "FeatureCollection",
-        "features": []
-    };
-
-    var start = '{"type": "FeatureCollection", "features": [';
+    var start = '{\'type\': \'FeatureCollection\', \'features\': [';
     fs.appendFileSync(outputFile, start, {encoding: 'utf8'});
-    var comma = "";
+    var comma = '';
     var line = 0;
     inputStream.on('data', function (chunk) {
         line = line + 1;
