@@ -41,3 +41,5 @@ function mergeStream(inputFile, outputFile) {
         console.log('\ndone');
     });
 }
+
+module.exports = {'mergeStream': mergeStream};
