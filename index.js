@@ -39,7 +39,7 @@ function mergeStream(inputFile, outputFile) {
     inputStream.on('end', function () {
         var end = ']}';
         fs.appendFileSync(outputFile, end, {encoding: 'utf8'});
-        console.log('\ndone');
+        console.log('\nMerged features in %s', outputFile);
     });
 }
 
