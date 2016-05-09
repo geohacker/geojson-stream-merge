@@ -2,17 +2,13 @@
 
 var fs = require('fs');
 var split = require('split');
-var argv = require('minimist')(process.argv.slice(2));
 
-if (!argv.hasOwnProperty('input')) {
-    console.log('Usage: node index.js --input <path to line delimited GeoJSON FeatureCollections>');
-} else {
-    mergeStream(argv.input, argv.output);
-}
-
-function mergeStream(inputFile, outputFile) {
+function geojsonStreamMerge(inputFile, outputFile) {
+    if (!inputFile) {
+        console.log('Usage: node index.js --input <path to line delimited GeoJSON FeatureCollections>');
+    }
     if (!outputFile) {
-        outputFile = argv.input.split('.')[0] + '-merged.json';
+        outputFile = inputFile.split('.')[0] + '-merged.geojson';
     }
     var inputStream = fs.createReadStream(inputFile, {encoding: 'utf8'}).pipe(split());
 
@@ -43,4 +39,4 @@ function mergeStream(inputFile, outputFile) {
     });
 }
 
-module.exports = {'mergeStream': mergeStream};
+module.exports = geojsonStreamMerge;
