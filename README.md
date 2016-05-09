@@ -5,7 +5,7 @@ Creates a single valid `FeatureCollection` from a file of line delimited feature
 #### Usage
 
 
-`CLI`
+**CLI**
 
 0. `git clone https://github.com/geohacker/geojson-stream-merge.git`
 2. `cd geojson-stream-merge`
@@ -13,11 +13,11 @@ Creates a single valid `FeatureCollection` from a file of line delimited feature
 4. `npm link`
 5. `node index.js --input input-file.json --output output-file.json`
 
-`API`
+**API**
 
 ```
 var gsm = require('geojson-stream-merge');
 
-gsm(inputFile, outputFile);
+gsm(<path-to-input-file>, <path-to-output-file>);
 
 ```
