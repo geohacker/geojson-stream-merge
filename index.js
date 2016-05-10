@@ -12,7 +12,7 @@ function geojsonStreamMerge(inputFile, outputFile) {
     }
     var inputStream = fs.createReadStream(inputFile, {encoding: 'utf8'}).pipe(split());
 
-    var start = '{\'type\': \'FeatureCollection\', \'features\': [';
+    var start = '{ "type": "FeatureCollection", "features": [';
 
     fs.appendFileSync(outputFile, start, {encoding: 'utf8'});
     var comma = '';
@@ -33,7 +33,7 @@ function geojsonStreamMerge(inputFile, outputFile) {
     });
 
     inputStream.on('end', function () {
-        var end = ']}';
+        var end = "]}";
         fs.appendFileSync(outputFile, end, {encoding: 'utf8'});
         console.log('\nMerged features in %s', outputFile);
     });
