@@ -1,6 +1,6 @@
 {
   "name": "geojson-stream-merge",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Create a single FeatureCollection from line delimited GeoJSON FeatureCollections",
   "main": "index.js",
   "scripts": {
