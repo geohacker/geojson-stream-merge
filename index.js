@@ -3,7 +3,7 @@
 var fs = require('fs');
 var split = require('split');
 
-function geojsonStreamMerge(inputFile, outputFile) {
+function geojsonStreamMerge(inputFile, outputFile, callback) {
     if (!inputFile) {
         console.log('Usage: node index.js --input <path to line delimited GeoJSON FeatureCollections>');
     }
@@ -36,6 +36,9 @@ function geojsonStreamMerge(inputFile, outputFile) {
         var end = "]}";
         fs.appendFileSync(outputFile, end, {encoding: 'utf8'});
         console.log('\nMerged features in %s', outputFile);
+        if (callback) {
+            callback();
+        }
     });
 }
 
