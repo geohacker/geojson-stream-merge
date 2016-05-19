@@ -6,11 +6,10 @@ Creates a single valid `FeatureCollection` from a file of line delimited feature
 
 
 #### CLI
-
 1. `git clone https://github.com/geohacker/geojson-stream-merge.git`
 2. `cd geojson-stream-merge`
-3. `npm install`
-4. `node geojsonStreamMerge.js --input test/test.json --output test/output.json`
+3. `npm link`
+4. `geojson-stream-merge  --input test/test.json --output test/output.json`
 
 
 #### API
