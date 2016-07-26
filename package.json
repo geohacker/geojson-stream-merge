@@ -4,7 +4,7 @@
   "description": "Create a single FeatureCollection from line delimited GeoJSON FeatureCollections",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test/*.js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
   "homepage": "https://github.com/geohacker/geojson-stream-merge",
   "dependencies": {
     "minimist": "^1.2.0",
-    "split": "^1.0.0"
+    "split": "^1.0.0",
+    "tape": "^4.6.0"
   }
 }
