@@ -20,9 +20,8 @@
   },
   "homepage": "https://github.com/geohacker/geojson-stream-merge",
   "dependencies": {
-    "geojsonhint": "^2.0.0-beta",
+    "geojson-assert": "^0.0.2",
     "minimist": "^1.2.0",
-    "split": "^1.0.0",
     "tape": "^4.6.0"
   }
 }
