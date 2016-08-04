@@ -15,7 +15,7 @@ Creates a single valid `FeatureCollection` from a file of line delimited feature
 ```
 var gsm = require('geojson-stream-merge');
 
-gsm(<path-to-input-file>, <path-to-output-file>, function () {
+gsm(<path-to-input-file>, <path-to-output-file>, function (error, data) {
     console.log('done');
 });
 ```
