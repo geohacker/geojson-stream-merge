@@ -1,42 +1,48 @@
+'use strict';
+
 var tape = require('tape');
 var fs = require('fs');
 var geojsonAssert = require('geojson-assert');
 var geojsonStreamMerge = require('../index.js');
+var path = require('path');
+var join = path.join;
 
-tape('error when --input argument is not present', function(assert) {
-  geojsonStreamMerge(null, null,function(err,data) {
-    assert.ifError(!err);
+tape('error when --input argument is not present', function (assert) {
+    geojsonStreamMerge(null, null, function (err) {
+        assert.ifError(!err);
+        assert.end();
+    });
+
+});
+
+tape('Check output file name when output file name argument is empty', function (assert) {
+    geojsonStreamMerge(join(__dirname, '/testInput'), null, function (err, data) {
+        assert.equals(data, join(__dirname, '/testInput-merged.geojson'), 'ok, valid file name');
+        assert.ifError(!err);
+        assert.end();
+    });
+
+});
+
+tape('check if the output is as per expected', function (assert) {
+    geojsonStreamMerge(join(__dirname, '/testInput'), join(__dirname, '/output.geojson'), function (err) {
+        var output = fs.readFileSync(join(__dirname, '/output.geojson'), 'utf8');
+        var testOutput = fs.readFileSync(join(__dirname, '/testOutput.geojson'), 'utf8');
+        assert.equals(output, testOutput, 'ok, valid output');
+        assert.ifError(!err);
+        assert.end();
+    });
+
+});
+
+tape('is geojson valid', function (assert) {
+    var output = fs.readFileSync(join(__dirname, '/output.geojson'), 'utf8');
+    assert.equals(geojsonAssert(output), undefined, 'ok, valid geojson');
     assert.end();
-  })
-
 });
 
-tape('Check output file name when output file name argument is empty', function(assert) {
-  geojsonStreamMerge(__dirname + "/testInput", null,function(err,data) {
-    assert.equals(data, __dirname + "/testInput-merged.geojson", "ok, valid file name");
+tape('teardown', function (assert) {
+    fs.unlinkSync(join(__dirname, '/output.geojson'));
+    fs.unlinkSync(join(__dirname, '/testInput-merged.geojson'));
     assert.end();
-  })
-
-});
-
-tape('check if the output is as per expected', function(assert) {
-  geojsonStreamMerge(__dirname + "/testInput", __dirname + "/output.geojson",function(err,data) {
-    var output = fs.readFileSync(__dirname + '/output.geojson', 'utf8');
-    var testOutput = fs.readFileSync(__dirname + '/testOutput.geojson', 'utf8');
-    assert.equals(output, testOutput, "ok, valid output");
-    assert.end();
-  })
-
-});
-
-tape('is geojson valid', function(assert) {
-  var output = fs.readFileSync(__dirname + '/output.geojson', 'utf8');
-  assert.equals(geojsonAssert(output), undefined, "ok, valid geojson");
-  assert.end();
-});
-
-tape('teardown', function(assert) {
-  fs.unlinkSync(__dirname + "/output.geojson");
-  fs.unlinkSync(__dirname + "/testInput-merged.geojson");
-  assert.end();
 });
