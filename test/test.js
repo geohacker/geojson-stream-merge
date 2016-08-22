@@ -18,7 +18,7 @@ tape('error when --input argument is not present', function (assert) {
 tape('Check output file name when output file name argument is empty', function (assert) {
     geojsonStreamMerge(join(__dirname, '/testInput'), null, function (err, data) {
         assert.equals(data, join(__dirname, '/testInput-merged.geojson'), 'ok, valid file name');
-        assert.ifError(!err);
+        assert.ifError(err);
         assert.end();
     });
 
@@ -29,7 +29,7 @@ tape('check if the output is as per expected', function (assert) {
         var output = fs.readFileSync(join(__dirname, '/output.geojson'), 'utf8');
         var testOutput = fs.readFileSync(join(__dirname, '/testOutput.geojson'), 'utf8');
         assert.equals(output, testOutput, 'ok, valid output');
-        assert.ifError(!err);
+        assert.ifError(err);
         assert.end();
     });
 
