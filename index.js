@@ -11,7 +11,10 @@ function geojsonStreamMerge(inputFile, outputFile, callback) {
     }
     if (!outputFile) {
         outputFile = inputFile.split('.')[0] + '-merged.geojson';
-
+    }
+    //if output file exists, overwrite file instead of appending to it.
+    if (fs.existsSync(outputFile)) {
+        fs.unlinkSync(outputFile);
     }
     var inputStream = fs.createReadStream(inputFile, {encoding: 'utf8'}).pipe(split());
 
