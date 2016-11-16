@@ -32,7 +32,16 @@ tape('check if the output is as per expected', function (assert) {
         assert.ifError(err);
         assert.end();
     });
+});
 
+tape('check output when the input file contains line-delimited features instead of line-delimited feature collections', function (assert) {
+    geojsonStreamMerge(join(__dirname, '/testInputFeatures.json'), join(__dirname, '/output.geojson'), function (err) {
+        var output = fs.readFileSync(join(__dirname, '/output.geojson'), 'utf8');
+        var testOutput = fs.readFileSync(join(__dirname, '/testOutput.geojson'), 'utf8');
+        assert.equals(output, testOutput, 'ok, valid output');
+        assert.ifError(err);
+        assert.end();
+    });
 });
 
 tape('is geojson valid', function (assert) {

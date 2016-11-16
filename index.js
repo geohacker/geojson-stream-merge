@@ -28,13 +28,20 @@ function geojsonStreamMerge(inputFile, outputFile, callback) {
         process.stderr.cursorTo(0);
         process.stderr.write('Processing line: ' + String(line));
         if (chunk) {
-            var features = JSON.parse(chunk).features;
-            features.forEach(function (feature) {
-                fs.appendFileSync(outputFile, comma + JSON.stringify(feature), {encoding: 'utf8'});
+            var json = JSON.parse(chunk);
+            if (json.features) {
+                json.features.forEach(function (feature) {
+                    fs.appendFileSync(outputFile, comma + JSON.stringify(feature), {encoding: 'utf8'});
+                    if (!comma) {
+                        comma = ',';
+                    }
+                });
+            } else {
+                fs.appendFileSync(outputFile, comma + JSON.stringify(json), {encoding: 'utf8'});
                 if (!comma) {
                     comma = ',';
                 }
-            });
+            }
         }
     });
 
