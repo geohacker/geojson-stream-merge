@@ -1,6 +1,6 @@
 # geojson-stream-merge
 
-Creates a single valid `FeatureCollection` from a file of line delimited feature collections.
+Creates a single valid `FeatureCollection` from a file of line delimited features or feature collections.
 
 ## Usage
 
