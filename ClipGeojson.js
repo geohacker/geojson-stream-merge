@@ -56,8 +56,10 @@ function ClipGeojson(bbox, clip, outFile, callback) {
         });
 };
 
-var argv = require('minimist')(process.argv.slice(2));
+// var argv = require('minimist')(process.argv.slice(2));
 
 // console.log(argv)
 
-ClipGeojson(argv.bbox, argv.clip, argv.outFile, function(err, done) { console.log('callback called', err, done); })
+// ClipGeojson(argv.bbox, argv.clip, argv.outFile, function(err, done) { console.log('callback called', err, done); })
+
+module.exports = ClipGeojson;
