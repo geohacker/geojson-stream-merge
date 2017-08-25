@@ -1,5 +1,6 @@
 var fs = require('fs');
 var turf = require('turf');
+var minimist = require('minimist');
 
 function ClipGeojson(bbox, clip, outFile, callback) {
     if (!bbox) {
@@ -48,4 +49,8 @@ function ClipGeojson(bbox, clip, outFile, callback) {
                     callback(null, outFile);
                 }
         });
-}
+};
+
+var argv = require('minimist')(process.argv.slice(3));
+
+ClipGeojson(argv.bbox, argv.clip, argv.outFile, null)
