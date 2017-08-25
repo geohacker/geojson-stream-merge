@@ -11,8 +11,8 @@ function ClipGeojson(bbox, clip, outFile, callback) {
         outFile = clip.split('.')[0] + '-merged.geojson';
     }
     //if output file exists, overwrite file instead of appending to it.
-    if (fs.existsSync(outputFile)) {
-        fs.unlinkSync(outputFile);
+    if (fs.existsSync(outFile)) {
+        fs.unlinkSync(outFile);
     }
     if (!clip) {
         console.log('\nUsage: node index.js --bbox <path to bounding box GeoJSON FeatureCollections> --clip <path to the line delimited GeoJson that needs to be clipped>\n');
@@ -20,7 +20,7 @@ function ClipGeojson(bbox, clip, outFile, callback) {
         return callback(new Error('--clip argument needed'));
     }
     var start = '{ "type": "FeatureCollection", "features": [';    
-    fs.appendFileSync(outputFile, start, {encoding: 'utf8'});
+    fs.appendFileSync(outFile, start, {encoding: 'utf8'});
     var comma = '';
     var line = 0;
     fs.createReadStream(clip, {encoding: 'utf8'})
@@ -34,7 +34,7 @@ function ClipGeojson(bbox, clip, outFile, callback) {
 
             if (turf.inside(point, bbox)) {
                 var json = JSON.parse(point);
-                fs.appendFileSync(outputFile, comma + JSON.stringify(json), {encoding: 'utf8'});
+                fs.appendFileSync(outFile, comma + JSON.stringify(json), {encoding: 'utf8'});
                     if (!comma) {
                         comma = ',';
                     }
@@ -42,10 +42,10 @@ function ClipGeojson(bbox, clip, outFile, callback) {
             })
         .on('end', function () {
                 var end = "]}";
-                fs.appendFileSync(outputFile, end, {encoding: 'utf8'});
-                console.log('\nMerged features in %s', outputFile);
+                fs.appendFileSync(outFile, end, {encoding: 'utf8'});
+                console.log('\nMerged features in %s', outFile);
                 if (callback) {
-                    callback(null, outputFile);
+                    callback(null, outFile);
                 }
         });
 }
