@@ -9,7 +9,7 @@ function ClipGeojson(bbox, clip, outFile, callback) {
         return callback(new Error('--bbox argument needed'));
     }
     if (!outFile) {
-        outFile = clip.split('.')[0] + '-merged.geojson';
+        outFile = String(clip.split('.')[0]) + 'merged.geojson';
     }
     //if output file exists, overwrite file instead of appending to it.
     if (fs.existsSync(outFile)) {
@@ -26,7 +26,7 @@ function ClipGeojson(bbox, clip, outFile, callback) {
     var line = 0;
     fs.createReadStream(clip, {encoding: 'utf8'})
         .on('data', function(point) {
-            
+            console.log(point);
             if (!point) return;
             
             line = line + 1;
@@ -51,6 +51,8 @@ function ClipGeojson(bbox, clip, outFile, callback) {
         });
 };
 
-var argv = require('minimist')(process.argv.slice(3));
+var argv = require('minimist')(process.argv.slice(2));
 
-ClipGeojson(argv.bbox, argv.clip, argv.outFile, null)
+console.log(argv)
+
+ClipGeojson(argv.bbox, argv.clip, argv.outFile, function(err, done) { console.log('callback called', err, done); })
