@@ -1,7 +1,7 @@
 {
   "name": "geojson-stream-merge",
-  "version": "3.0.0",
-  "description": "Create a single FeatureCollection from line delimited GeoJSON FeatureCollections",
+  "version": "4.0.0",
+  "description": "Create/clip a single FeatureCollection from line delimited GeoJSON FeatureCollections",
   "main": "index.js",
   "scripts": {
     "test": "node test/*.js"
@@ -20,9 +20,11 @@
   },
   "homepage": "https://github.com/geohacker/geojson-stream-merge",
   "dependencies": {
+    "fs": "0.0.1-security",
     "geojson-assert": "^0.0.2",
     "minimist": "^1.2.0",
     "split": "^1.0.0",
-    "tape": "^4.6.0"
+    "tape": "^4.6.0",
+    "turf": "^3.0.14"
   }
 }
