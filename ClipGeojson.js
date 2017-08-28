@@ -26,19 +26,29 @@ function ClipGeojson(bbox, clip, outFile, callback) {
     fs.appendFileSync(outFile, start, {encoding: 'utf8'});
     var comma = '';
     var line = 0;
+    bboxObject = JSON.parse(fs.readFileSync(bbox, 'utf-8'));
+    var allThePolygons = bboxObject.features.map(function(f) { 
+        return f.geometry.coordinates;
+    });
+    
+    var multiPolygon = {
+        'type': 'Feature',
+        'geometry': {
+            'type': 'MultiPolygon',
+            'coordinates': allThePolygons
+        }
+    };
     fs.createReadStream(clip, {encoding: 'utf8'})
         .pipe(split())
         .on('data', function(point) {
+            if (!point) return;
             var json = JSON.parse(point);
-            var bbox = JSON.parse(fs.readFileSync(bbox, 'utf-8'));
-            console.log(json);
-            if (!json) return;
             
             line = line + 1;
             process.stderr.cursorTo(0);
             process.stderr.write('Processing line: ' + String(line));
 
-            if (turf.inside(json.geometry, bbox)) {                
+            if (turf.inside(json.geometry, multiPolygon)) {                
                 fs.appendFileSync(outFile, comma + JSON.stringify(json), {encoding: 'utf8'});
                     if (!comma) {
                         comma = ',';
@@ -48,7 +58,6 @@ function ClipGeojson(bbox, clip, outFile, callback) {
         .on('end', function () {
                 var end = "]}";
                 fs.appendFileSync(outFile, end, {encoding: 'utf8'});
-                console.log(outFile);
                 console.log('\nMerged features in %s', outFile);
                 if (callback) {
                     callback(null, outFile);
