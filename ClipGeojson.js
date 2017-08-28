@@ -5,7 +5,7 @@ var split = require('split');
 
 function ClipGeojson(bbox, clip, outFile, callback) {
     if (!bbox) {
-        console.log('\nUsage: node index.js --bbox <path to bounding box GeoJSON FeatureCollections> --clip <path to the line delimited GeoJson that needs to be clipped>\n');
+        console.log('\nUsage: node index.js --bbox <path to bounding box GeoJSON FeatureCollections> --clip <path to the line delimited GeoJson that needs to be clipped> --out <path to output file>\n');
 
         return callback(new Error('--bbox argument needed'));
     }
@@ -17,7 +17,7 @@ function ClipGeojson(bbox, clip, outFile, callback) {
         fs.unlinkSync(outFile);
     }
     if (!clip) {
-        console.log('\nUsage: node index.js --bbox <path to bounding box GeoJSON FeatureCollections> --clip <path to the line delimited GeoJson that needs to be clipped>\n');
+        console.log('\nUsage: node index.js --bbox <path to bounding box GeoJSON FeatureCollections> --clip <path to the line delimited GeoJson that needs to be clipped> --out <path to output file>\n');
         
         return callback(new Error('--clip argument needed'));
     }
@@ -55,11 +55,4 @@ function ClipGeojson(bbox, clip, outFile, callback) {
                 }
         });
 }
-
-// var argv = require('minimist')(process.argv.slice(2));
-
-// console.log(argv)
-
-// ClipGeojson(argv.bbox, argv.clip, argv.outFile, function(err, done) { console.log('callback called', err, done); })
-
 module.exports = ClipGeojson;

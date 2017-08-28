@@ -12,7 +12,7 @@ switch (argv._[0]) {
         });
         break;
     case ('clip'):
-        require('./ClipGeojson')(argv.bbox, argv.clip, argv.outFile, (err) => {
+        require('./ClipGeojson')(argv.bbox, argv.clip, argv.out, (err) => {
             if (err) {
                 console.error(err.toString());
                 process.exit(1);
