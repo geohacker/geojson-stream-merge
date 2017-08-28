@@ -54,7 +54,7 @@ function ClipGeojson(bbox, clip, outFile, callback) {
                     callback(null, outFile);
                 }
         });
-};
+}
 
 // var argv = require('minimist')(process.argv.slice(2));
 
