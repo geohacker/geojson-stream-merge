@@ -2,6 +2,7 @@
 
 var fs = require('fs');
 var split = require('split');
+const readline = require('readline');
 
 function geojsonStreamMerge(inputFile, outputFile, callback) {
     if (!inputFile) {
@@ -25,7 +26,7 @@ function geojsonStreamMerge(inputFile, outputFile, callback) {
     var line = 0;
     inputStream.on('data', function (chunk) {
         line = line + 1;
-        process.stderr.cursorTo(0);
+        readline.cursorTo(process.stderr, 0);
         process.stderr.write('Processing line: ' + String(line));
         if (chunk) {
             var json = JSON.parse(chunk);
@@ -46,7 +47,7 @@ function geojsonStreamMerge(inputFile, outputFile, callback) {
     });
 
     inputStream.on('end', function () {
-        var end = "]}";
+        var end = ']}';
         fs.appendFileSync(outputFile, end, {encoding: 'utf8'});
         console.log('\nMerged features in %s', outputFile);
         if (callback) {
