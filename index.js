@@ -47,7 +47,7 @@ function geojsonStreamMerge(inputFile, outputFile, callback) {
     });
 
     inputStream.on('end', function () {
-        var end = "]}";
+        var end = ']}';
         fs.appendFileSync(outputFile, end, {encoding: 'utf8'});
         console.log('\nMerged features in %s', outputFile);
         if (callback) {
